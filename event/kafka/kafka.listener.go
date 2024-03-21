@@ -6,7 +6,7 @@ import (
 
 	"github.com/mitchellh/mapstructure"
 
-	"bitbucket.org/rctiplus/vegapunk/event"
+	"github.com/dikiharyadi19/govegapunk/event"
 )
 
 type (

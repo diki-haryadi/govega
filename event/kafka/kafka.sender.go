@@ -8,14 +8,13 @@ import (
 	"time"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/segmentio/kafka-go"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/propagation"
 	semconv "go.opentelemetry.io/otel/semconv/v1.7.0"
 	"go.opentelemetry.io/otel/trace"
 
-	"bitbucket.org/rctiplus/vegapunk/event"
+	"github.com/dikiharyadi19/govegapunk/event"
 )
 
 type (

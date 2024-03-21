@@ -7,7 +7,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"bitbucket.org/rctiplus/vegapunk/log"
+	"github.com/dikiharyadi19/govegapunk/log"
 )
 
 type (

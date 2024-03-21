@@ -1,9 +1,9 @@
 package main
 
 import (
-	"bitbucket.org/rctiplus/vegapunk/cache/redis"
 	"context"
 	"fmt"
+	"github.com/dikiharyadi19/govegapunk/cache/redis"
 	"net/url"
 )
 

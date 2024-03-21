@@ -1,6 +1,6 @@
 package redis
 
-import "bitbucket.org/rctiplus/vegapunk/cache"
+import "github.com/dikiharyadi19/govegapunk/cache"
 
 const (
 	schemaDefault = "redis"

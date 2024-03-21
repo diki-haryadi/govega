@@ -1,8 +1,8 @@
 package redis
 
 import (
-	"bitbucket.org/rctiplus/vegapunk/cache"
 	"context"
+	"github.com/dikiharyadi19/govegapunk/cache"
 	"github.com/go-redis/redis/v8"
 )
 

@@ -6,15 +6,14 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/segmentio/kafka-go"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/propagation"
 	semconv "go.opentelemetry.io/otel/semconv/v1.7.0"
 	"go.opentelemetry.io/otel/trace"
 
-	"bitbucket.org/rctiplus/vegapunk/event"
-	"bitbucket.org/rctiplus/vegapunk/log"
+	"github.com/dikiharyadi19/govegapunk/event"
+	"github.com/dikiharyadi19/govegapunk/log"
 )
 
 type (

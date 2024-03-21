@@ -11,7 +11,7 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.7.0"
 	"go.opentelemetry.io/otel/trace"
 
-	"bitbucket.org/rctiplus/vegapunk/log"
+	"github.com/dikiharyadi19/govegapunk/log"
 )
 
 const (

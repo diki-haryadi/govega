@@ -1,8 +1,8 @@
 package main
 
 import (
-	"bitbucket.org/rctiplus/vegapunk/geoip"
 	"fmt"
+	"github.com/dikiharyadi19/govegapunk/geoip"
 	"net"
 	"net/http"
 )

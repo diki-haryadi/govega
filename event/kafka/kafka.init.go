@@ -1,6 +1,6 @@
 package kafka
 
-import "bitbucket.org/rctiplus/vegapunk/event"
+import "github.com/dikiharyadi19/govegapunk/event"
 
 func init() {
 	event.RegisterSender("kafka", NewKafkaSender)

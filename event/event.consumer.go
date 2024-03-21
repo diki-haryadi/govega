@@ -9,7 +9,7 @@ import (
 
 	"go.opentelemetry.io/otel"
 
-	"bitbucket.org/rctiplus/vegapunk/log"
+	"github.com/dikiharyadi19/govegapunk/log"
 )
 
 const (
@@ -132,13 +132,13 @@ func (c *Consumer) isRunning() bool {
 	return atomic.LoadUint32(&c.running) == start
 }
 
-//WithConsumeStrategy, set consume strategy for this consumer
+// WithConsumeStrategy, set consume strategy for this consumer
 func (c *Consumer) WithConsumeStrategy(strategy ConsumeStrategy) {
 	c.consumeStrategy = strategy
 }
 
-//Use add middlewares to actual event handler before accessing the actual handler
-//Please add your middlewares before calling subscribe or it may not work properly
+// Use add middlewares to actual event handler before accessing the actual handler
+// Please add your middlewares before calling subscribe or it may not work properly
 func (c *Consumer) Use(middlewares ...EventMiddleware) {
 	if len(c.listenerPools) > 0 {
 		panic("[event/consumer] all middlewares should be added before subscribe")
@@ -146,8 +146,8 @@ func (c *Consumer) Use(middlewares ...EventMiddleware) {
 	c.middlewares = append(c.middlewares, middlewares...)
 }
 
-//Subscribe to a topic with specific group
-//this should be call before Start the consumer
+// Subscribe to a topic with specific group
+// this should be call before Start the consumer
 func (c *Consumer) Subscribe(ctx context.Context, topic, group string,
 	handler EventHandler) error {
 	if c.isRunning() {
@@ -182,7 +182,7 @@ func (c *Consumer) Subscribe(ctx context.Context, topic, group string,
 	return nil
 }
 
-//Start activate the consumer and start receiving event
+// Start activate the consumer and start receiving event
 func (c *Consumer) Start() error {
 	if c.isRunning() {
 		return ErrConsumerStarted
@@ -220,8 +220,8 @@ func (c *Consumer) Start() error {
 	return nil
 }
 
-//Stop gracefully stop the consumer waiting for all workers to complete
-//before exiting
+// Stop gracefully stop the consumer waiting for all workers to complete
+// before exiting
 func (c *Consumer) Stop() error {
 	if !c.isRunning() {
 		return nil

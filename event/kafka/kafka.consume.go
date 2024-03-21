@@ -4,10 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/segmentio/kafka-go"
 	"go.opentelemetry.io/otel/attribute"
 
-	"bitbucket.org/rctiplus/vegapunk/event"
+	"github.com/dikiharyadi19/govegapunk/event"
 )
 
 const (
