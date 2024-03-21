@@ -170,3 +170,9 @@ func (im *integrationModule) PushNotification(ctx context.Context, req MoengageP
 	return &res, nil
 }
 ```
+
+## Feature
+- [x] Hystrix Timeout
+- [x] Http Timeout
+- [x] Retry Mechanism
+- [ ] add singleflag
