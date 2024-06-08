@@ -2,12 +2,17 @@ package cache
 
 import (
 	"context"
-
-	netUrl "net/url"
+	"errors"
+	"net/url"
 )
 
+const NotFound = CacheError("[cache] not found")
+const NotSupported = CacheError("[cache] not supported")
+
+// Cache cache service
 type Cache interface {
 	Set(ctx context.Context, key string, value interface{}, expiration int) error
+	Increment(ctx context.Context, key string, expiration int) (int64, error)
 	Get(ctx context.Context, key string) ([]byte, error)
 	GetObject(ctx context.Context, key string, doc interface{}) error
 	GetString(ctx context.Context, key string) (string, error)
@@ -17,30 +22,41 @@ type Cache interface {
 	Delete(ctx context.Context, key string, opts ...DeleteOptions) error
 	GetKeys(ctx context.Context, pattern string) []string
 	RemainingTime(ctx context.Context, key string) int
-	Publish(ctx context.Context, channel, message string) error
-	Subscribe(ctx context.Context, topic string) (Subscriber, error)
 	Close() error
 }
-
-type (
-	InitFunc      func(url *netUrl.URL) (Cache, error)
-	DeleteOptions func(options *DeleteCache)
-)
 
 type DeleteCache struct {
 	Pattern string
 }
 
-func New(url string) (Cache, error) {
-	u, err := netUrl.Parse(url)
+type DeleteOptions func(options *DeleteCache)
+
+// InitFunc cache init function
+type InitFunc func(url *url.URL) (Cache, error)
+
+var cacheImpl = make(map[string]InitFunc)
+
+// Register register cache implementation
+func Register(schema string, f InitFunc) {
+	cacheImpl[schema] = f
+}
+
+// New create new cache
+func New(urlStr string) (Cache, error) {
+
+	u, err := url.Parse(urlStr)
 	if err != nil {
 		return nil, err
 	}
 
-	fn, ok := cacheImpl[u.Scheme]
+	f, ok := cacheImpl[u.Scheme]
 	if !ok {
-		return nil, ErrUnsuportedSchema
+		return nil, errors.New("unsupported scheme")
 	}
 
-	return fn(u)
+	return f(u)
 }
+
+type CacheError string
+
+func (e CacheError) Error() string { return string(e) }
