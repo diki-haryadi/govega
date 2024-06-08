@@ -24,8 +24,8 @@ type (
 		// on second
 		PingTimeout time.Duration
 	}
-	MongoDatabase struct {
-		MongoDatabase *mongo.Database
+	Database struct {
+		Database *mongo.Database
 	}
 )
 
@@ -34,13 +34,13 @@ var (
 	defaultPingTimeout    = 2 * time.Second
 )
 
-func MongoConnectClient(c *Client) *MongoDatabase {
+func MongoConnectClient(c *Client) *Database {
 	client, err := c.MongoConnect()
 	if err != nil {
 		panic(err)
 	}
-	return &MongoDatabase{
-		MongoDatabase: client.Database(c.DB),
+	return &Database{
+		Database: client.Database(c.DB),
 	}
 }
 
