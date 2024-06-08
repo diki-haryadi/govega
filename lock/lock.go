@@ -3,13 +3,15 @@ package lock
 import (
 	"context"
 	"errors"
-	"strings"
-
 	"net/url"
+	"strings"
 )
 
-type InitFunc func(url []*url.URL) (DLocker, error)
+var (
+	ErrResourceLocked = errors.New("resource locked")
+)
 
+// DLocker distributed locker interface
 type DLocker interface {
 	TryLock(ctx context.Context, id string, ttl int) error
 	Lock(ctx context.Context, id string, ttl int) error
@@ -17,6 +19,17 @@ type DLocker interface {
 	Close() error
 }
 
+// InitFunc cache init function
+type InitFunc func(urls []*url.URL) (DLocker, error)
+
+var lockerImpl = make(map[string]InitFunc)
+
+// Register register cache implementation
+func Register(schema string, f InitFunc) {
+	lockerImpl[schema] = f
+}
+
+// New create new cache
 func New(urlStr string) (DLocker, error) {
 	if urlStr == "" {
 		urlStr = "local://"
