@@ -5,25 +5,30 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/diki-haryadi/govega/log"
 	"github.com/prometheus/client_golang/prometheus"
-
-	"gitlab.com/superman-tech/lib/log"
 )
 
 var (
 	httpLatencyHistogram      *prometheus.HistogramVec
 	httpResponsesTotalCounter *prometheus.CounterVec
-	httpMetricLabels          = []string{
-		"handler",
-		"method",
-		"httpcode",
-		"env",
-	}
+	httpMetricLabels          = []string{"handler", "method", "httpcode", "env"}
+
+	grpcLatencyHistogram      *prometheus.HistogramVec
+	grpcResponsesTotalCounter *prometheus.CounterVec
+	grpcMetricLabels          = []string{"handler", "grpccode", "grpcstatus", "env"}
+
+	consumerLatencyHistogram      *prometheus.HistogramVec
+	consumerResponsesTotalCounter *prometheus.CounterVec
+	consumerMetricLabels          = []string{"topic", "group", "status", "env"}
 )
 
 func init() {
+	Init("")
+}
+
+func Init(appName string) {
 	// metrics name doesn't accept dash(-) character
-	appName := ""
 	appName = strings.ReplaceAll(appName, "-", "_")
 
 	registerHistogram(appName)
@@ -33,11 +38,23 @@ func init() {
 func registerHistogram(appName string) {
 	unregister(httpLatencyHistogram)
 	httpLatencyHistogram = createAndRegisterHistogram("http", appName, httpMetricLabels)
+
+	unregister(grpcLatencyHistogram)
+	grpcLatencyHistogram = createAndRegisterHistogram("grpc", appName, grpcMetricLabels)
+
+	unregister(consumerLatencyHistogram)
+	consumerLatencyHistogram = createAndRegisterHistogram("consumer", appName, consumerMetricLabels)
 }
 
 func registerCounter(appName string) {
 	unregister(httpResponsesTotalCounter)
 	httpResponsesTotalCounter = createAndRegisterCounter("http", appName, httpMetricLabels)
+
+	unregister(grpcResponsesTotalCounter)
+	grpcResponsesTotalCounter = createAndRegisterCounter("grpc", appName, grpcMetricLabels)
+
+	unregister(consumerResponsesTotalCounter)
+	consumerResponsesTotalCounter = createAndRegisterCounter("consumer", appName, consumerMetricLabels)
 }
 
 func unregister(c prometheus.Collector) {
@@ -52,7 +69,6 @@ func createAndRegisterHistogram(metric, namespace string, labels []string) *prom
 		Namespace: namespace,
 		Help:      fmt.Sprintf("the latency of %s calls", metric),
 	}, labels)
-
 	if err := prometheus.Register(newHistogram); err != nil {
 		log.WithFields(log.Fields{
 			"metric":    metric,
@@ -69,7 +85,6 @@ func createAndRegisterCounter(metric, namespace string, labels []string) *promet
 		Namespace: namespace,
 		Help:      fmt.Sprintf("The count of %s responses issued", metric),
 	}, labels)
-
 	if err := prometheus.Register(newCounter); err != nil {
 		log.WithFields(log.Fields{
 			"metric":    metric,
