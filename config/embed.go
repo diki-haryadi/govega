@@ -4,26 +4,16 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/dikiharyadi19/govegapunk/util"
+	"github.com/diki-haryadi/govega/util"
 	"github.com/mitchellh/mapstructure"
 )
 
+// EmbedConfig embeded configs
 type EmbedConfig struct {
 	config interface{}
 }
 
-type Getter interface {
-	Get(k string) interface{}
-	GetString(k string) string
-	GetBool(k string) bool
-	GetInt(k string) int
-	GetFloat64(k string) float64
-	GetStringSlice(k string) []string
-	GetStringMap(k string) map[string]interface{}
-	GetStringMapString(k string) map[string]string
-	Unmarshal(rawVal interface{}) error
-}
-
+// NewEmbedConfig new embed configs instance
 func NewEmbedConfig(config interface{}) *EmbedConfig {
 	if config == nil {
 		return nil
@@ -153,7 +143,7 @@ func (e *EmbedConfig) Unmarshal(rawVal interface{}) error {
 	return util.DecodeJSON(e.config, rawVal)
 }
 
-// GetConfig get config
+// GetConfig get configs
 func (e *EmbedConfig) GetConfig(k string) Getter {
 	v, ok := util.Lookup(k, e.config)
 	if !ok {
@@ -164,3 +154,26 @@ func (e *EmbedConfig) GetConfig(k string) Getter {
 		config: v,
 	}
 }
+
+/*
+func decode(input interface{}, configs *mapstructure.DecoderConfig) error {
+	decoder, err := mapstructure.NewDecoder(configs)
+	if err != nil {
+		return err
+	}
+	return decoder.Decode(input)
+}
+
+func defaultDecoderConfig(output interface{}) *mapstructure.DecoderConfig {
+	c := &mapstructure.DecoderConfig{
+		Metadata:         nil,
+		Result:           output,
+		WeaklyTypedInput: true,
+		DecodeHook: mapstructure.ComposeDecodeHookFunc(
+			mapstructure.StringToTimeDurationHookFunc(),
+			mapstructure.StringToSliceHookFunc(","),
+		),
+	}
+	return c
+}
+*/

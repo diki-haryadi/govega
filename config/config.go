@@ -2,46 +2,45 @@ package config
 
 import (
 	"encoding/json"
-	"fmt"
-	"io/fs"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 
+	"github.com/diki-haryadi/govega/env"
 	"gopkg.in/yaml.v2"
-
-	"github.com/dikiharyadi19/govegapunk/env"
 )
 
-func ReadConfig(cfg interface{}, path, module string) error {
+func ReadModuleConfig(cfg interface{}, path string, module string) error {
+	environ := env.Get()
+	getFormatFile := filePath(path)
 
-	e := env.Get()
-
-	var file string
-	filepath.Walk(path, func(path string, info fs.FileInfo, err error) error {
+	switch getFormatFile {
+	case ".json":
+		fname := path + "/" + module + "." + environ + ".json"
+		jsonFile, err := ioutil.ReadFile(fname)
 		if err != nil {
 			return err
 		}
+		return json.Unmarshal(jsonFile, cfg)
+	default:
+		fname := path + "/" + module + "." + environ + ".yaml"
+		yamlFile, err := ioutil.ReadFile(fname)
+		if err != nil {
+			return err
+		}
+		return yaml.Unmarshal(yamlFile, cfg)
+	}
 
+}
+
+func filePath(root string) string {
+	var file string
+	filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
 		file = filepath.Ext(info.Name())
 		return nil
 	})
-
-	switch file {
-	case ".json":
-		filename := fmt.Sprintf("%s/%s.%s.json", path, module, e)
-		jsonFile, err := ioutil.ReadFile(filename)
-		if err != nil {
-			return err
-		}
-
-		return json.Unmarshal(jsonFile, cfg)
-	default:
-		filename := fmt.Sprintf("%s/%s.%s.yaml", path, module, e)
-		yamlFile, err := ioutil.ReadFile(filename)
-		if err != nil {
-			return err
-		}
-
-		return yaml.Unmarshal(yamlFile, cfg)
-	}
+	return file
 }

@@ -1,0 +1,19 @@
+Server:
+  Port: ":3001"
+  BasePath: "/mesin-sortir/api/v1"
+  GracefulTimeout: 10
+  ReadTimeout: 10
+  WriteTimeout: 10
+  APITimeout: 10
+
+Database:
+  SlaveDSN: "postgres://agung:yY3w3YaSgQ232S7qQh1kkk2L2mRecLYKca@sicepat-tmspod-staging.cchjcxaiivov.ap-southeast-1.rds.amazonaws.com:5432/sicepattms?sslmode=disable"
+  MasterDSN: "postgres://agung:yY3w3YaSgQ232S7qQh1kkk2L2mRecLYKca@sicepat-tmspod-staging.cchjcxaiivov.ap-southeast-1.rds.amazonaws.com:5432/sicepattms?sslmode=disable"
+  RetryInterval: 10
+  MaxIdleConn: 10
+  MaxConn: 10
+
+ConfigBasicAuth:
+  Username: "sicepateng2021"
+  Password: "4CDC7A721A514483879D82C895EC14ED"
+
