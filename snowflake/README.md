@@ -9,8 +9,8 @@ import (
 
 func main() {
 	pod, err := NewPOD(&SnowflakeOpts{
-		Epoch: 1626670674000, //Set in config
-		POD:   1, //Set in config
+		Epoch: 1626670674000, //Set in configs
+		POD:   1, //Set in configs
 	})
 	if err != nil {
 		//Handler error should be fatal or else
