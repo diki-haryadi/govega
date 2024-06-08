@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"runtime"
 
-	"gitlab.com/superman-tech/lib/custerr"
-	"gitlab.com/superman-tech/lib/log"
+	"github.com/diki-haryadi/govega/custerr"
+	"github.com/diki-haryadi/govega/log"
 )
 
 type JSONResponse struct {
