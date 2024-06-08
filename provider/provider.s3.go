@@ -6,9 +6,8 @@ import (
 	"errors"
 	"io"
 
-	"github.com/minio/minio-go/v7"
+	"github.com/diki-haryadi/govega/config"
 	"github.com/minio/minio-go/v7/pkg/credentials"
-	"gitlab.com/superman-tech/lib/config"
 )
 
 type S3 struct {

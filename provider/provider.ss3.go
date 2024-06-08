@@ -7,10 +7,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/minio/minio-go/v7"
+	"github.com/diki-haryadi/govega/config"
+	"github.com/diki-haryadi/govega/file"
 	"github.com/minio/minio-go/v7/pkg/credentials"
-	"gitlab.com/superman-tech/lib/config"
-	"gitlab.com/superman-tech/lib/file"
 )
 
 type SS3 struct {

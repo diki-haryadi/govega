@@ -10,7 +10,7 @@ import (
 	"cloud.google.com/go/storage"
 	"google.golang.org/api/option"
 
-	"gitlab.com/superman-tech/lib/config"
+	"github.com/diki-haryadi/govega/config"
 )
 
 type GCP struct {
@@ -24,7 +24,7 @@ type GCP struct {
 func NewGCPStorage(cfg config.Getter) (StorageProvider, error) {
 	var storeGcp GCP
 	if err := cfg.Unmarshal(&storeGcp); err != nil {
-		return nil, errors.New("[provider/gcp] failed unmarshal config")
+		return nil, errors.New("[provider/gcp] failed unmarshal configs")
 	}
 
 	var (

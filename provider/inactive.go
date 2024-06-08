@@ -5,7 +5,7 @@ import (
 	"errors"
 	"io"
 
-	"gitlab.com/superman-tech/lib/log"
+	"github.com/diki-haryadi/govega/log"
 )
 
 type InactiveProvider struct {

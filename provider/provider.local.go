@@ -8,8 +8,8 @@ import (
 	"path"
 	"sync"
 
-	"gitlab.com/superman-tech/lib/config"
-	"gitlab.com/superman-tech/lib/log"
+	"github.com/diki-haryadi/govega/config"
+	"github.com/diki-haryadi/govega/log"
 )
 
 var copyBufPool = sync.Pool{
@@ -30,7 +30,7 @@ func NewLocalStorage(conf config.Getter) (StorageProvider, error) {
 
 	err := os.MkdirAll(local.Filepath, os.ModePerm)
 	if err != nil {
-		log.WithError(err).Errorln(local)
+		log.WithError(err)
 		return nil, err
 	}
 

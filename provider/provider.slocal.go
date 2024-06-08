@@ -7,9 +7,9 @@ import (
 	"os"
 	"path"
 
-	"gitlab.com/superman-tech/lib/config"
-	"gitlab.com/superman-tech/lib/file"
-	"gitlab.com/superman-tech/lib/log"
+	"github.com/diki-haryadi/govega/config"
+	"github.com/diki-haryadi/govega/file"
+	"github.com/diki-haryadi/govega/log"
 )
 
 type SLocal struct {
