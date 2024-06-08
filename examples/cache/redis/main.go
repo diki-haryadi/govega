@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/dikiharyadi19/govegapunk/cache/redis"
+	"github.com/diki-haryadi/govega/cache/redis"
 	"net/url"
 )
 

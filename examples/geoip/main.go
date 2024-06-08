@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/dikiharyadi19/govegapunk/geoip"
+	"github.com/diki-haryadi/govega/geoip"
 	"net"
 	"net/http"
 )
