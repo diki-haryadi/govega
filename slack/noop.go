@@ -3,7 +3,7 @@ package slack
 import (
 	"context"
 
-	"gitlab.com/superman-tech/lib/log"
+	"github.com/diki-haryadi/govega/log"
 )
 
 func (n *noopSlack) PostToSlack(ctx context.Context, message string, opts ...PostOption) error {

@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"gitlab.com/superman-tech/lib/env"
-	"gitlab.com/superman-tech/lib/httprq"
+	"github.com/diki-haryadi/govega/env"
+	"github.com/diki-haryadi/govega/httprq"
 )
 
 const (
