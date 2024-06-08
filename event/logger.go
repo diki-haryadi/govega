@@ -3,17 +3,28 @@ package event
 import (
 	"context"
 
+	"github.com/diki-haryadi/govega/log"
 	"github.com/sirupsen/logrus"
-
-	"github.com/dikiharyadi19/govegapunk/log"
 )
 
 type EventLogger struct {
 	log *logrus.Entry
 }
 
+func EventLoggerSender(ctx context.Context, config interface{}) (Sender, error) {
+	return NewEventLogger(ctx, config)
+}
+
+func EventLoggerWriter(ctx context.Context, config interface{}) (Writer, error) {
+	return NewEventLogger(ctx, config)
+}
+
+func EventLoggerListener(ctx context.Context, config interface{}) (Listener, error) {
+	return NewEventLogger(ctx, config)
+}
+
 func NewEventLogger(ctx context.Context, config interface{}) (*EventLogger, error) {
-	return &EventLogger{log: log.GetLogger(ctx, "event", "log")}, nil
+	return &EventLogger{log: log.GetLogger(ctx, "event", "logger")}, nil
 }
 
 func (e *EventLogger) Send(ctx context.Context, message *EventMessage) error {

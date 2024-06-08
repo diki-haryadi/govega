@@ -12,15 +12,18 @@ var (
 	}
 )
 
-type ConsumeStrategy func(ctx context.Context, message ConsumeMessage, handler EventHandler) error
-type ConsumeStrategyFactory func(ctx context.Context, config interface{}) (ConsumeStrategy, error)
+type (
+	ConsumeStrategy func(ctx context.Context, message ConsumeMessage, handler EventHandler) error
 
-//RegisterConsumeStrategy register consumestrategy
+	ConsumeStrategyFactory func(ctx context.Context, config interface{}) (ConsumeStrategy, error)
+)
+
+// RegisterConsumeStrategy register consumestrategy
 func RegisterConsumeStrategy(name string, fn ConsumeStrategyFactory) {
 	consumeStrategy[name] = fn
 }
 
-//AlwaysCommitStrategy will always commit the message no matter what is the handler result
+// AlwaysCommitStrategy will always commit the message no matter what is the handler result
 func AlwaysCommitStrategy(ctx context.Context, message ConsumeMessage, handler EventHandler) error {
 	em, err := message.GetEventConsumeMessage(ctx)
 	if err != nil {
@@ -34,7 +37,7 @@ func AlwaysCommitStrategy(ctx context.Context, message ConsumeMessage, handler E
 	return handler(ctx, em)
 }
 
-//CommitOnSuccessStrategy will only commit the message if handler doesn't return error
+// CommitOnSuccessStrategy will only commit the message if handler doesn't return error
 func CommitOnSuccessStrategy(ctx context.Context, message ConsumeMessage, handler EventHandler) error {
 	em, err := message.GetEventConsumeMessage(ctx)
 	if err != nil {
@@ -52,8 +55,8 @@ func CommitOnSuccessStrategy(ctx context.Context, message ConsumeMessage, handle
 	return nil
 }
 
-//NoConfigConsumeStrategyFactory util function to create factory for consume strategy
-//which doesn't need any config
+// NoConfigConsumeStrategyFactory util function to create factory for consume strategy
+// which doesn't need any config
 func NoConfigConsumeStrategyFactory(strategy ConsumeStrategy) ConsumeStrategyFactory {
 	return func(ctx context.Context, config interface{}) (ConsumeStrategy, error) {
 		return strategy, nil
